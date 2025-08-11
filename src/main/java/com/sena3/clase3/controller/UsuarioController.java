@@ -1,13 +1,25 @@
 package com.sena3.clase3.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena3.clase3.models.Usuario;
 import com.sena3.clase3.repositories.UsuarioRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
+
 
 @RestController
 public class UsuarioController {
+
 
   @Autowired
   private UsuarioRepository userRepo;
@@ -18,7 +30,35 @@ public class UsuarioController {
   }
 
   @GetMapping("/user")
-    public String listaUsuario() {
+    public String listaUser() {
       return userRepo.findAll().toString();
     }
+    @GetMapping("/userJs")
+    public List<Usuario> jsonUser() {
+        return userRepo.findAll();
+    }
+    
+    @PostMapping("/CreateUser")
+    public Usuario createUser(@RequestBody Usuario usuario) {
+        return userRepo.save(usuario);
+    }
+    @DeleteMapping("/DeleteUser/{id}")
+    public String eliminUsuario(@PathVariable Integer id){
+      userRepo.deleteById(id);
+      return "User deleted";
+    }
+    @PutMapping("userupdate/{id}")
+    public String userUpdate(@PathVariable String id, @RequestBody Usuario Usuario) {
+      Usuario userup = userRepo.findById(Integer.parseInt(id)).orElse(null);
+      if(userup == null){
+        return "usuario no encontrado";
+      }
+      userup.setNombre(userup.getNombre());
+      userup.setApellido(userup.getApellido());
+      userup.setId_ciudad(userup.getId_ciudad());
+      userRepo.save(userup);
+
+        return "usuario acrualizado";
+    }
+    
 }
