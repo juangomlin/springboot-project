@@ -23,5 +23,5 @@ public class Usuario {
     private Integer id_usuario;
     private String nombre;
     private String apellido;
-    private Integer id_ciudad;
+    private String ciudad;
 }

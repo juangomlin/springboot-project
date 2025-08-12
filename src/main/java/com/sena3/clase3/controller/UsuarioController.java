@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
 @RestController
 public class UsuarioController {
 
@@ -29,11 +26,11 @@ public class UsuarioController {
       return "conectando desde usuario ";
   }
 
-  @GetMapping("/user")
+  @GetMapping("/userList")
     public String listaUser() {
       return userRepo.findAll().toString();
     }
-    @GetMapping("/userJs")
+    @GetMapping("/userJson")
     public List<Usuario> jsonUser() {
         return userRepo.findAll();
     }
@@ -42,23 +39,24 @@ public class UsuarioController {
     public Usuario createUser(@RequestBody Usuario usuario) {
         return userRepo.save(usuario);
     }
+
     @DeleteMapping("/DeleteUser/{id}")
     public String eliminUsuario(@PathVariable Integer id){
       userRepo.deleteById(id);
       return "User deleted";
     }
     @PutMapping("userupdate/{id}")
-    public String userUpdate(@PathVariable String id, @RequestBody Usuario Usuario) {
+    public String userUpdate(@PathVariable String id, @RequestBody Usuario user) {
       Usuario userup = userRepo.findById(Integer.parseInt(id)).orElse(null);
       if(userup == null){
-        return "usuario no encontrado";
+        return "user not found";
       }
-      userup.setNombre(userup.getNombre());
-      userup.setApellido(userup.getApellido());
-      userup.setId_ciudad(userup.getId_ciudad());
+      userup.setNombre(user.getNombre());
+      userup.setApellido(user.getApellido());
+      userup.setCiudad(user.getCiudad());
       userRepo.save(userup);
 
-        return "usuario acrualizado";
+        return "user updated";
     }
     
 }
