@@ -3,16 +3,23 @@ package com.sena3.clase3.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena3.clase3.dto.UserDto;
 import com.sena3.clase3.models.Usuario;
 import com.sena3.clase3.repositories.UsuarioRepository;
+import com.sena3.clase3.services.UserServices;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+
+
 
 @RestController
 public class UsuarioController {
@@ -59,4 +66,15 @@ public class UsuarioController {
         return "user updated";
     }
     
+    // metodos de arquitectura por capas
+    @Autowired
+    private UserServices userServ;
+
+    @GetMapping("/userServ/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable Integer id) {
+        return new ResponseEntity<>(userServ.getUser(id), 
+        HttpStatus.OK);
+    }
+    
+
 }
