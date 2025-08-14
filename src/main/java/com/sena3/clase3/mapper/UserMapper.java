@@ -1,10 +1,13 @@
 package com.sena3.clase3.mapper;
 
+import java.util.List;
 import com.sena3.clase3.dto.UserDto;
-import com.sena3.clase3.models.Usuario;
+import com.sena3.clase3.models.User;
 
 public interface UserMapper {
-  Usuario consultUser(UserDto userDto);
+  User consultUser(UserDto userDto);
 
-  UserDto consultDto(Usuario user);
+  UserDto consultDto(User user);
+
+  List<UserDto> ListDto(List<User> users);
 }

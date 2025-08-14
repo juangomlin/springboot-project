@@ -1,38 +1,51 @@
 package com.sena3.clase3.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.sena3.clase3.dto.UserDto;
-import com.sena3.clase3.models.Usuario;
+import com.sena3.clase3.models.User;
 
 @Component
 public class UserMapperImple implements UserMapper{
   @Override
-  public Usuario consultUser(UserDto userDto) {
+  public User consultUser(UserDto userDto) {
     if (userDto == null) {
       return null;
     }
-
-    Usuario user = new Usuario();
-    user.setId_usuario(userDto.getId_usuario());
-    user.setNombre(userDto.getNombre());
-    user.setApellido(userDto.getApellido());
-    user.setCiudad(userDto.getCiudad());
+    User user = new User();
+    user.setId_usuario(userDto.getId());
+    user.setNombre(userDto.getNom());
+    user.setApellido(userDto.getApe());
+    user.setCiudad(userDto.getCiu());
     return user;
   }
 
   @Override
-  public UserDto consultDto(Usuario user){
+  public UserDto consultDto(User user){
     if (user == null) {
       return null;
     }
-
     UserDto userDto = new UserDto();
-    userDto.setId_usuario(user.getId_usuario());
-    userDto.setNombre(user.getNombre());
-    userDto.setApellido(user.getApellido());
-    userDto.setCiudad(user.getCiudad());
+    userDto.setId(user.getId_usuario());
+    userDto.setNom(user.getNombre());
+    userDto.setApe(user.getApellido());
+    userDto.setCiu(user.getCiudad());
     return userDto;
   }
 
+  @Override
+  public List<UserDto> ListDto(List<User> users)
+  {
+    if (users == null) {
+      return List.of();
+    }
+    List<UserDto> usersDto = new ArrayList<UserDto>(users.size());
+    for (User user : users) {
+      usersDto.add(consultDto(user));
+    }
+    return usersDto;
+  }
 }

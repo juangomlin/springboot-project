@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sena3.clase3.models.Producto;
+import com.sena3.clase3.models.Product;
 import com.sena3.clase3.repositories.ProductoRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 public class ProductController {
   @Autowired
+  
   private ProductoRepository productRepo;
 
   @GetMapping("/productConnect")
@@ -31,12 +32,12 @@ public class ProductController {
   }
   
   @GetMapping("/productJson")
-  public List<Producto> getProductJson() {
+  public List<Product> getProductJson() {
       return productRepo.findAll();
   }
 
   @PostMapping("/createProduct")
-  public Producto postMethodName(@RequestBody Producto product) {
+  public Product postMethodName(@RequestBody Product product) {
       return productRepo.save(product);
   }
   
@@ -47,8 +48,8 @@ public class ProductController {
     }
   
   @PutMapping("updateProduct/{id}")
-  public String putMethodName(@PathVariable String id, @RequestBody Producto product) {
-      Producto productP = productRepo.findById(Integer.parseInt(id)).orElse(null);
+  public String putMethodName(@PathVariable String id, @RequestBody Product product) {
+      Product productP = productRepo.findById(Integer.parseInt(id)).orElse(null);
       if (productP == null) {
         return "Product not found";
       }

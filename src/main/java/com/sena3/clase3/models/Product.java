@@ -10,18 +10,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
-@Table(name = "usuarios")
+@Table (name = "productos")
 
-public class Usuario {
+public class Product {
     @Id
-    @Column(name = "id_usuario")
+    @Column (name = "id_producto")
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer id_usuario;
+    private Integer id_producto;
+    private String categoria;
     private String nombre;
-    private String apellido;
-    private String ciudad;
+    private Integer precio;
 }

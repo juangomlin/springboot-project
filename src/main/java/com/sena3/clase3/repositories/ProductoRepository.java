@@ -2,8 +2,8 @@ package com.sena3.clase3.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.sena3.clase3.models.Producto;
+import com.sena3.clase3.models.Product;
 
-public interface ProductoRepository extends JpaRepository<Producto, Integer>{
+public interface ProductoRepository extends JpaRepository<Product, Integer>{
 
 }

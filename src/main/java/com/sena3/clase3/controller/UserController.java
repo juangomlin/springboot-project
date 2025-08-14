@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sena3.clase3.dto.UserDto;
-import com.sena3.clase3.models.Usuario;
+import com.sena3.clase3.models.User;
 import com.sena3.clase3.repositories.UsuarioRepository;
 import com.sena3.clase3.services.UserServices;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
 @RestController
-public class UsuarioController {
+public class UserController {
 
 
   @Autowired
@@ -38,13 +40,13 @@ public class UsuarioController {
       return userRepo.findAll().toString();
     }
     @GetMapping("/userJson")
-    public List<Usuario> jsonUser() {
+    public List<User> jsonUser() {
         return userRepo.findAll();
     }
     
     @PostMapping("/CreateUser")
-    public Usuario createUser(@RequestBody Usuario usuario) {
-        return userRepo.save(usuario);
+    public User createUser(@RequestBody User user) {
+        return userRepo.save(user);
     }
 
     @DeleteMapping("/DeleteUser/{id}")
@@ -53,8 +55,8 @@ public class UsuarioController {
       return "User deleted";
     }
     @PutMapping("userupdate/{id}")
-    public String userUpdate(@PathVariable String id, @RequestBody Usuario user) {
-      Usuario userup = userRepo.findById(Integer.parseInt(id)).orElse(null);
+    public String userUpdate(@PathVariable String id, @RequestBody User user) {
+      User userup = userRepo.findById(Integer.parseInt(id)).orElse(null);
       if(userup == null){
         return "user not found";
       }
@@ -72,9 +74,24 @@ public class UsuarioController {
 
     @GetMapping("/userServ/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Integer id) {
-        return new ResponseEntity<>(userServ.getUser(id), 
+        return new ResponseEntity<>(userServ.getUser(id),
         HttpStatus.OK);
     }
-    
 
+    @PostMapping("/createUserDto")
+    public ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto) {
+        return new ResponseEntity<>(userServ.saveUser(userDto), HttpStatus.CREATED);
+    }
+
+    // Lista de usuarios
+
+    @GetMapping("/userListDto")
+    public ResponseEntity<List<UserDto>> getUsers() {
+        return new ResponseEntity<>(userServ.getUsers(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteUsers/{id}")
+    public ResponseEntity<UserDto> deleteUser (@PathVariable Integer id) {
+      return new ResponseEntity<>(userServ.deleteUser(id), HttpStatus.OK);
+    }
 }
