@@ -10,4 +10,6 @@ public interface UserMapper {
   UserDto consultDto(User user);
 
   List<UserDto> ListDto(List<User> users);
+
+  void updateUser(User user, UserDto userDto);
 }

@@ -20,8 +20,8 @@ public class Product {
     @Id
     @Column (name = "id_producto")
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer id_producto;
-    private String categoria;
-    private String nombre;
-    private Integer precio;
+    private Integer id_product;
+    private String category;
+    private String name;
+    private Integer price;
 }

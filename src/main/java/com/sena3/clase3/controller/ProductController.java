@@ -3,16 +3,22 @@ package com.sena3.clase3.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena3.clase3.dto.ProductDto;
 import com.sena3.clase3.models.Product;
 import com.sena3.clase3.repositories.ProductoRepository;
+import com.sena3.clase3.services.ProductService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -53,12 +59,29 @@ public class ProductController {
       if (productP == null) {
         return "Product not found";
       }
-      productP.setCategoria(product.getCategoria());
-      productP.setNombre(product.getNombre());
-      productP.setPrecio(product.getPrecio());
+      productP.setCategory(product.getCategory());
+      productP.setName(product.getName());
+      productP.setPrice(product.getPrice());
       productRepo.save(productP);
 
       return "product updated";
   }
+
+  // Arquitectura por capas
+
+  @Autowired
+  public ProductService productServ;
+
+  @GetMapping("/FindProduct/{id}")
+  public ResponseEntity<ProductDto> getProduct(@PathVariable Integer id) {
+      return new ResponseEntity<>(productServ.getProduct(id), HttpStatus.OK);
+  }
+  @PostMapping("/CreateProduct")
+  public ResponseEntity<ProductDto> saveProduct(@RequestBody ProductDto productDto) {
+    return new ResponseEntity<>(productServ.saveProduct(productDto),HttpStatus.OK);
+  }
+  
+  
+
 
 }

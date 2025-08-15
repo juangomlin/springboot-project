@@ -18,7 +18,7 @@ public class UserServicesImple implements UserServices{
   @Autowired
   private UserMapper usermapper;
 
- @Override
+  @Override
   public UserDto getUser(Integer userId) {
     User usuario = userRepo.findById(userId).get();
     return usermapper.consultDto(usuario);
@@ -41,6 +41,13 @@ public class UserServicesImple implements UserServices{
     User users = userRepo.findById(id).get();
     userRepo.delete(users);
     return usermapper.consultDto(users);
+  }
+
+  @Override
+  public UserDto updateUser(Integer id, UserDto userDto) {
+    User user = userRepo.findById(id).get();
+    usermapper.updateUser(user, userDto);
+    return usermapper.consultDto(userRepo.save(user));
   }
 }
 

@@ -18,7 +18,6 @@ import com.sena3.clase3.services.UserServices;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -94,4 +93,10 @@ public class UserController {
     public ResponseEntity<UserDto> deleteUser (@PathVariable Integer id) {
       return new ResponseEntity<>(userServ.deleteUser(id), HttpStatus.OK);
     }
+
+    @PutMapping("UserUpdate/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto ){
+      return new ResponseEntity<>(userServ.updateUser(id, userDto), HttpStatus.OK);
+    }
+        
 }

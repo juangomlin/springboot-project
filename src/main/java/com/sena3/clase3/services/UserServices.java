@@ -12,4 +12,5 @@ public interface UserServices {
   public UserDto saveUser(UserDto usuarioDto);
   public List<UserDto> getUsers();
   public UserDto deleteUser(Integer id);
+  public UserDto updateUser(Integer id, UserDto userDto);
 }
