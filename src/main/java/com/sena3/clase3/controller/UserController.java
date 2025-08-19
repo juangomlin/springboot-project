@@ -94,7 +94,7 @@ public class UserController {
       return new ResponseEntity<>(userServ.deleteUser(id), HttpStatus.OK);
     }
 
-    @PutMapping("UserUpdate/{id}")
+    @PutMapping("/UserUpdate/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto ){
       return new ResponseEntity<>(userServ.updateUser(id, userDto), HttpStatus.OK);
     }

@@ -18,6 +18,8 @@ import com.sena3.clase3.services.ProductService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -80,8 +82,15 @@ public class ProductController {
   public ResponseEntity<ProductDto> saveProduct(@RequestBody ProductDto productDto) {
     return new ResponseEntity<>(productServ.saveProduct(productDto),HttpStatus.OK);
   }
+  @GetMapping("/ListProducts")
+  public ResponseEntity <List<ProductDto>> getProducts() {
+      return new ResponseEntity<>(productServ.getProducts(), HttpStatus.OK);
+  }
   
-  
+  @PutMapping("/UpdateProduct/{id}")
+  public ResponseEntity<ProductDto> updateProductDto(@PathVariable Integer id, @RequestBody ProductDto productDto) {
+  return new ResponseEntity<>(productServ.updateProduct(id, productDto), HttpStatus.OK);
+  }
 
 
 }
